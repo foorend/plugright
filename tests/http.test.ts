@@ -1,0 +1,13 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {scenarios} from '../lib/engine.ts';
+const base=process.env.PLUGRIGHT_TEST_URL;
+const options={skip:!base};
+const post=(path:string,data:unknown,origin=base)=>fetch(`${base}${path}`,{method:'POST',headers:{'Content-Type':'application/json',...(origin?{Origin:origin}:{})},body:JSON.stringify(data)});
+test('HTTP: page serves application, not skeleton',options,async()=>{const r=await fetch(`${base}/`);assert.equal(r.status,200);assert.match(await r.text(),/PlugRight/);});
+test('HTTP: reuse quote works against real server',options,async()=>{const r=await post('/api/check',scenarios.reuse.setup);assert.equal(r.status,200);const d=await r.json() as any;assert.equal(d.proposal.reused,true);assert.equal(d.afterTotal,0);});
+test('HTTP: apply cart correction and recheck it',options,async()=>{const first=await post('/api/check',scenarios.repair.setup),d=await first.json() as any;assert.equal(d.cartFindings.length,2);const next=await post('/api/check',d.proposal.setup),fixed=await next.json() as any;assert.equal(fixed.total,2400);assert.equal(fixed.checkoutReady,true);});
+test('HTTP: invalid quantity is rejected',options,async()=>assert.equal((await post('/api/check',{...scenarios.repair.setup,cart:[{id:'A4',quantity:-1}]})).status,400));
+test('HTTP: foreign-origin payment call is rejected',options,async()=>assert.equal((await post('/api/paypal',{action:'create',setup:scenarios.repair.setup},'https://not-this-site.invalid')).status,403));
+test('HTTP: sandbox configuration is disabled without credentials and leaks no secret',options,async()=>{const r=await fetch(`${base}/api/paypal`),d=await r.json() as any;assert.equal(d.mode,'sandbox');assert.equal(d.enabled,false);assert.deepEqual(Object.keys(d).sort(),['clientId','enabled','mode']);});
+test('HTTP: malformed check request is rejected',options,async()=>{const r=await fetch(`${base}/api/check`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{bad json'});assert.equal(r.status,400);});

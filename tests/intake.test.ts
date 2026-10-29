@@ -1,0 +1,22 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {reviewIntake,resolveIntake,parseIntake,intakeSchema,MODEL_ID} from '../lib/intake.ts';
+import {inspect} from '../lib/engine.ts';
+
+// Synthetic model outputs test the trust boundary, not the real model's accuracy.
+const text='One external monitor: MacBook Air M2 with Dell U2723QE, 4K 60Hz, video USB-C input. I plan to buy Anker 332 A8356. I own only Apple Thunderbolt 3 0.8m; no other cables.';
+const raw={host:{id:'H2',quote:'MacBook Air M2'},display:{id:'D1',quote:'Dell U2723QE'},via:{id:'K3',quote:'Anker 332 A8356'},mode:{id:'4k60',quote:'4K 60Hz'},port:{id:'video',quote:'video USB-C input'},source:{id:'planned',quote:'I plan to buy Anker 332 A8356'},screens:{id:'one',quote:'One external monitor'},inventory:{id:'complete',quote:'no other cables'},owned:[{id:'A2',quote:'Apple Thunderbolt 3 0.8m'}]};
+test('complete quoted extraction proposes equipment only; rule checker finds reuse',()=>{const r=reviewIntake(raw,text);assert.equal(r.questions.length,0);assert.ok(r.setup);assert.equal(r.setup.host,'H2');assert.deepEqual(r.setup.cart,[{id:'K3',quantity:1}]);assert.equal(inspect(r.setup).proposal?.reused,true);assert.deepEqual(raw.owned,[{id:'A2',quote:'Apple Thunderbolt 3 0.8m'}]);});
+for(const key of ['host','display','via','mode','port','source','screens','inventory'])test(`missing ${key} blocks applying a guessed setup`,()=>{const r=reviewIntake({...raw,[key]:{id:'unknown',quote:''}},text);assert.equal(r.setup,null);assert.ok(r.questions.length);});
+test('invented quote cannot turn an unknown device into a supported one',()=>{const r=reviewIntake({...raw,host:{id:'H2',quote:'M2 Mac bought in 2022'}},text);assert.equal(r.setup,null);});
+test('unknown model ID and malformed owned list fail closed',()=>{for(const change of [{host:{id:'H999',quote:'MacBook Air M2'}},{owned:null},{owned:[{id:'__proto__',quote:'no other cables'}]},{owned:[raw.owned[0],raw.owned[0]]}])assert.equal(reviewIntake({...raw,...change},text).setup,null);});
+test('a planned discontinued dock cannot enter the test cart',()=>{assert.equal(reviewIntake({...raw,via:{id:'K1',quote:'Anker 332 A8356'}},text).setup,null);});
+test('owned connection must also be in inventory',()=>{assert.equal(reviewIntake({...raw,source:{id:'owned',quote:'I own only Apple Thunderbolt 3 0.8m'}},text).setup,null);});
+test('empty and oversized text are rejected',()=>{for(const value of ['', ' '.repeat(5), 'x'.repeat(2001)])assert.throws(()=>reviewIntake(raw,value));});
+test('prices, totals and payment actions from a model are ignored',()=>{const r=reviewIntake({...raw,price:0,total:0,action:'capture',cart:[{id:'A4',quantity:99}]},text);assert.deepEqual(r.setup?.cart,[{id:'K3',quantity:1}]);assert.equal(inspect(r.setup).total,3500);});
+test('schema constrains IDs and runtime is explicitly browser based',()=>{assert.equal(intakeSchema.additionalProperties,false);assert.ok(MODEL_ID.includes('Qwen3-4B'));});
+test('a real quote cannot be attached to a different catalogue model or refresh rate',()=>{for(const change of [{display:{id:'D3',quote:'Dell U2723QE'}},{via:{id:'A5',quote:'Anker 332 A8356'}},{mode:{id:'1080p60',quote:'4K 60Hz'}},{owned:[{id:'A3',quote:'Apple Thunderbolt 3 0.8m'}]}])assert.equal(reviewIntake({...raw,...change},text).setup,null);});
+const spans={...Object.fromEntries(Object.entries(raw).filter(([key])=>key!=='owned').map(([key,value])=>[key,(value as {quote:string}).quote])),owned:raw.owned.map(x=>x.quote)};
+test('real model spans resolve through catalogue names, not model-invented IDs',()=>{const r=resolveIntake({...spans,price:0,hostId:'H5'},text);assert.equal(r.setup?.host,'H2');assert.deepEqual(r.setup?.owned,['A2']);assert.equal(inspect(r.setup).proposal?.reused,true);});
+test('unknown or paraphrased model spans block applying the result',()=>{for(const change of [{host:'MacBook Air M3'},{display:'Dell P2422H'},{source:'I plan to buy a new hub'},{screens:'Two external monitors'},{port:'USB-C'}])assert.equal(resolveIntake({...spans,...change},text).setup,null);assert.equal(resolveIntake({...spans,inventory:'no other cables'},text.replace('no other cables','')).setup,null);});
+test('Qwen empty non-thinking prefix is accepted; incomplete or nonempty output is rejected',()=>{assert.deepEqual(parseIntake('<think>\n\n</think>\n{"owned":[]}'),{owned:[]});for(const content of ['<think>unfinished','<think>text</think>{"owned":[]}','{"owned":'])assert.throws(()=>parseIntake(content));});

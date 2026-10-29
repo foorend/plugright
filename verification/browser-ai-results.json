@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-29T23:52:33.250Z",
+  "model": "Qwen3-4B-q4f16_1-MLC",
+  "results": [
+    {
+      "id": "reuse",
+      "text": "One external monitor: MacBook Air M2 with Dell U2723QE, 4K 60Hz, video USB-C input. I plan to buy an Anker 332 A8356 hub. I own only an Apple Thunderbolt 3 0.8m cable; no other cables.",
+      "elapsedSeconds": 8.828,
+      "canApply": true,
+      "expectedCanApply": true,
+      "passed": true,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 8.8s including any initial loading\nComputer\nMacBook Air M2 2022\nMacBook Air M2\nMonitor\nU2723QE\nDell U2723QE\nConnection item\nAnker 332 · A8356\nAnker 332 A8356 hub\nTarget\n4k60\n4K 60Hz\nPort\nvideo\nvideo USB-C\nItem source\nplanned\nI plan to buy\nExternal screens\none\nOne external monitor\nInventory\ncomplete\nno other cables\nOwned\nApple Thunderbolt 3 Cable 0.8m\nApple Thunderbolt 3 0.8m cable\n\nThis proposes a single-item test cart for a planned connection, or no purchase for owned equipment. Check every extracted value before applying.\n\nUse these details · then check connection"
+    },
+    {
+      "id": "ambiguous",
+      "text": "I have a MacBook and a USB-C cable. Can I connect a Dell monitor?",
+      "elapsedSeconds": 1.671,
+      "canApply": false,
+      "expectedCanApply": false,
+      "passed": true,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 1.7s including any initial loading\nConfirm the missing details\nWhat is the exact computer model and generation?\nWhat is the exact monitor model?\nWhich exact cable or hub will connect the computer and monitor?\nWhat resolution AND refresh rate do you need?\nWill you use a video input/output, or a data-only USB-C port?\nIs the connection item already owned, or a planned purchase?\nThis checker supports one external monitor. How many do you need?\nList all the cables/hubs you already own, or explicitly say you have no other cables.\n\nAdd these details and run AI again, or use the manual controls. No changes have been made."
+    },
+    {
+      "id": "unsupported",
+      "text": "One external monitor: Dell XPS 13 9340 with Dell U2723QE, 4K 60Hz, video USB-C input. I plan to buy an Anker 332 A8356 hub. I own no cables or hubs; no other cables.",
+      "elapsedSeconds": 3.909,
+      "canApply": false,
+      "expectedCanApply": false,
+      "passed": true,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 3.9s including any initial loading\nMonitor\nU2723QE\nDell U2723QE\nConnection item\nAnker 332 · A8356\nAnker 332 A8356 hub\nTarget\n4k60\n4K 60Hz\nPort\nvideo\nvideo USB-C input\nItem source\nplanned\nI plan to buy\nExternal screens\none\nOne external monitor\nInventory\ncomplete\nI own no cables or hubs\nConfirm the missing details\nWhat is the exact computer model and generation?\n\nAdd these details and run AI again, or use the manual controls. No changes have been made."
+    },
+    {
+      "id": "purchase",
+      "text": "One external monitor. Computer: MacBook Air M2. Monitor: Dell U2723QE. I want 4K 60Hz through a video input. I plan to buy Anker 332 A8356. I own no cables or hubs.",
+      "elapsedSeconds": 3.547,
+      "canApply": true,
+      "expectedCanApply": true,
+      "passed": true,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 3.5s including any initial loading\nComputer\nMacBook Air M2 2022\nMacBook Air M2\nMonitor\nU2723QE\nDell U2723QE\nConnection item\nAnker 332 · A8356\nAnker 332 A8356\nTarget\n4k60\n4K 60Hz\nPort\nvideo\nvideo input\nItem source\nplanned\nplan to buy\nExternal screens\none\nOne external monitor\nInventory\ncomplete\nI own no cables or hubs\n\nThis proposes a single-item test cart for a planned connection, or no purchase for owned equipment. Check every extracted value before applying.\n\nUse these details · then check connection"
+    },
+    {
+      "id": "owned",
+      "text": "I already own Apple Thunderbolt 3 0.8m cable and will connect it to Dell U2723QE from MacBook Air M2. One external monitor, 4K 60Hz, video input. No other cables.",
+      "elapsedSeconds": 3.995,
+      "canApply": false,
+      "expectedCanApply": true,
+      "passed": false,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 4.0s including any initial loading\nMonitor\nU2723QE\nDell U2723QE\nConnection item\nApple Thunderbolt 3 Cable 0.8m\nApple Thunderbolt 3 0.8m cable\nTarget\n4k60\n4K 60Hz\nPort\nvideo\nvideo input\nItem source\nowned\nalready own\nExternal screens\none\nOne external monitor\nInventory\ncomplete\nNo other cables\nOwned\nApple Thunderbolt 3 Cable 0.8m\nApple Thunderbolt 3 0.8m cable\nConfirm the missing details\nWhat is the exact computer model and generation?\n\nAdd these details and run AI again, or use the manual controls. No changes have been made."
+    },
+    {
+      "id": "missing-refresh",
+      "text": "One external monitor: MacBook Air M2 and Dell U2723QE. I want 4K through a video input. I plan to buy Anker 332 A8356. I own no cables or hubs.",
+      "elapsedSeconds": 3.309,
+      "canApply": false,
+      "expectedCanApply": false,
+      "passed": true,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 3.3s including any initial loading\nComputer\nMacBook Air M2 2022\nMacBook Air M2\nMonitor\nU2723QE\nDell U2723QE\nConnection item\nAnker 332 · A8356\nAnker 332 A8356\nPort\nvideo\nvideo input\nItem source\nplanned\nplan to buy\nExternal screens\none\nOne external monitor\nInventory\ncomplete\nI own no cables or hubs\nConfirm the missing details\nWhat resolution AND refresh rate do you need?\n\nAdd these details and run AI again, or use the manual controls. No changes have been made."
+    },
+    {
+      "id": "two-monitors",
+      "text": "Two external monitors: Dell U2723QE. Computer: MacBook Air M2. I want 4K 60Hz, video input. I plan to buy Anker 332 A8356. I own no cables or hubs.",
+      "elapsedSeconds": 3.655,
+      "canApply": false,
+      "expectedCanApply": false,
+      "passed": true,
+      "result": "Describe it before you shop.\n\nBrowser AI reads your equipment. You review it. The rule checker and server control compatibility and checkout.\n\nLocal AI · no API key\nYour computer, monitor, target resolution/refresh rate, video port, planned item and all owned cables\nRead with browser AI\nUse an example description\nQwen3 4B via WebLLM. Downloads model files from Hugging Face and the WebLLM runtime; approximately 3.5GB GPU memory required. After loading, your description is processed on this device. No paid AI calls. Model interpretations can be wrong.\n\nModel response received. Review the quoted evidence before applying.\n\nWhat the model found 3.6s including any initial loading\nComputer\nMacBook Air M2 2022\nMacBook Air M2\nMonitor\nU2723QE\nDell U2723QE\nConnection item\nAnker 332 · A8356\nAnker 332 A8356\nTarget\n4k60\n4K 60Hz\nPort\nvideo\nvideo input\nItem source\nplanned\nplan to buy\nInventory\ncomplete\nI own no cables or hubs\nConfirm the missing details\nThis checker supports one external monitor. How many do you need?\n\nAdd these details and run AI again, or use the manual controls. No changes have been made."
+    }
+  ]
+}

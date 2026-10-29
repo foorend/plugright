@@ -1,0 +1,25 @@
+Original PlugRight source: MIT, FOOREND, 2026.
+
+WebLLM 0.2.86: Apache License 2.0, MLC LLM contributors.
+https://github.com/mlc-ai/web-llm/blob/main/LICENSE
+
+Qwen3-4B model: Apache License 2.0, Qwen Team, Alibaba Cloud.
+https://huggingface.co/Qwen/Qwen3-4B/blob/main/LICENSE
+WebLLM quantization downloaded at runtime:
+https://huggingface.co/mlc-ai/Qwen3-4B-q4f16_1-MLC
+Model weights are not included in this repository.
+
+React, Vinext, Vite, Tailwind and other npm packages retain their respective
+licenses in their package distributions. See package-lock.json for exact
+resolved dependencies. The MIT license here does not relicense these packages.
+
+Bundled Sites starter integration and shadcn styles retain the supplied notices:
+build/sites-vite-plugin.LICENSE
+vendor/shadcn-tailwind-4.13.0.LICENSE.md
+
+Manufacturer names identify documented products only. Specification links and
+short factual summaries appear in lib/products.json; no manufacturer manuals,
+photographs or product logos are redistributed. Diagrams are original SVGs.
+PayPal SDK is loaded from its official service; no PayPal SDK code or logo is
+copied into this repository. The integration is sandbox-only and no endorsement
+is claimed.
