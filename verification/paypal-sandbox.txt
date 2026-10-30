@@ -1,0 +1,10 @@
+Actual hosted SDK flow, October 30, 2026. Test funds only.
+
+Sandbox payment completed
+
+USD 24.00
+
+Order 7KP79334N09120710
+Capture 88H81588AW7182923
+
+No real payment, goods or revenue. The demo records this order approval and completed receipt.

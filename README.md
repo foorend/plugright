@@ -40,7 +40,7 @@ Restart the local server. Local environment files are ignored by Git. Hosted dep
 
 The PayPal JavaScript SDK opens buyer approval. Server code calls only `https://api-m.sandbox.paypal.com`. It recomputes the cart and fictional prices, binds the checked setup to an HMAC-signed 15-minute ticket, compares remote order items/amount/currency before capture, and reuses the completed capture on retry. There is no live endpoint override. An empty cart cannot create an order.
 
-A previous hosted end-to-end SDK test completed one USD 24.00 sandbox payment on October 22, 2026. Server integration testing also confirmed completed-capture retry behavior. These are sandbox records, not revenue or real customer purchases.
+The deployed browser-AI version completed a new USD 24.00 sandbox payment on October 30, 2026 through the SDK, buyer approval screen and server-confirmed receipt. Server integration testing also confirmed completed-capture retry behavior. These are sandbox records, not revenue or real customer purchases.
 
 ## Checks
 
